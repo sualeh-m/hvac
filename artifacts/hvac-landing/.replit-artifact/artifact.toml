@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "HVAC Company Landing Page"
+description = "A responsive lead-generation website for a heating and cooling company, featuring clear service information and easy contact actions."
+version = "1.0.0"
+id = "artifacts/hvac-landing"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25432
+
+[services.development]
+run = "pnpm --filter @workspace/hvac-landing run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hvac-landing", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/hvac-landing/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25432"
+BASE_PATH = "/"
